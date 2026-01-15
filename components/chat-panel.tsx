@@ -1288,6 +1288,7 @@ export default function ChatPanel({
                     onModelSelect={modelConfig.setSelectedModelId}
                     showUnvalidatedModels={modelConfig.showUnvalidatedModels}
                     onConfigureModels={() => setShowModelConfigDialog(true)}
+                    isMobile={isMobile}
                 />
             </footer>
 

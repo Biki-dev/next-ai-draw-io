@@ -159,6 +159,7 @@ interface ChatInputProps {
     onModelSelect?: (modelId: string | undefined) => void
     showUnvalidatedModels?: boolean
     onConfigureModels?: () => void
+    isMobile?: boolean
 }
 
 export function ChatInput({
@@ -178,6 +179,7 @@ export function ChatInput({
     onModelSelect = () => {},
     showUnvalidatedModels = false,
     onConfigureModels = () => {},
+    isMobile = false,
 }: ChatInputProps) {
     const dict = useDictionary()
     const {
@@ -209,6 +211,14 @@ export function ChatInput({
     useEffect(() => {
         adjustTextareaHeight()
     }, [input, adjustTextareaHeight])
+
+    // Focus the input when the session changes (e.g., new chat started)
+    // We only do this on desktop to avoid popping up the keyboard on mobile
+    useEffect(() => {
+        if (sessionId && !isMobile) {
+            textareaRef.current?.focus()
+        }
+    }, [sessionId, isMobile])
 
     // Load send shortcut preference from localStorage and listen for changes
     useEffect(() => {
